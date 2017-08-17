@@ -67,10 +67,31 @@ class Lomo(Meat):
 		super().__init__(name, price, expire_date, calories, proteins, carbs, fats, animal)
 
 
-class Clothes(Product):
+class Manzana(Verdure):
 
-	def __init__(self, size):
-		self._size = size
+	def __init__(self, name, price, expire_date, calories, proteins, carbs, fats, vitC):
+		super().__init__(name, price, expire_date, calories, proteins, carbs, fats, vitC)
 
 
+class Leche(Lacteal):
+
+	def __init__(self, name, price, expire_date, calories, proteins, carbs, fats, calcium):
+		super().__init__(name, price, expire_date, calories, proteins, carbs, fats, calcium)
+
+
+class Clothes(Product, metaclass = ABCMeta):
+
+	def __init__(self, name, price, size, sex):
+		super().__init__(name, price)
+		self.size = size
+		self.sex = sex
+
+	def size_data(self):
+		print("Talla = " + str(self.size) + "\nGenero = " + str(self.sex))
+
+
+class PantalonAzul(Clothes):
+
+	def __init__(self, name, price, size, sex):
+		super().__init__(name, price, size, sex)
 
