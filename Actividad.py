@@ -13,7 +13,7 @@ class Product(metaclass = ABCMeta):
 		Product.SKU += 1
 
 	def __str__(self):
-		return "[" + str(self.SKU) + "] " + self.name + " $" + str(self.price)
+		return "[" + str(self.SKU) + "] " + self._name + " $" + str(self._price)
 
 
 class Food(Product, metaclass = ABCMeta):
@@ -28,19 +28,43 @@ class Food(Product, metaclass = ABCMeta):
 		self._fats = fats
 
 	def nutrition_data(self, grams = 100):
-		print("Calorías = " + str(self._calories*100/grams) + " (kcal)\nProteínas = " + str(self._proteins*100/grams) + " (g)\nCarbohidratos = " + str(self._carbs*100/grams) + " (g)\nGrasa = " + str(self._fats*100/grams) + " (g)")
+		print("Calorías = " + str(self._calories*grams/100) + " (kcal)\nProteínas = " + str(self._proteins*grams/100) + " (g)\nCarbohidratos = " + str(self._carbs*grams/100) + " (g)\nGrasa = " + str(self._fats*grams/100) + " (g)")
 
 
-class Lacteal(Food):
+class Lacteal(Food, metaclass = ABCMeta):
 
 	def __init__ (self, name, price, expire_date, calories, proteins, carbs, fats, calcium):
 		super().__init__(name, price, expire_date, calories, proteins, carbs, fats)
 		self._calcium = calcium
 
 	def nutrition_data(self, grams = 100):
-		print("Calorías = " + str(self._calories*100/grams) + " (kcal)\nProteínas = " + str(self._proteins*100/grams) + " (g)\nCarbohidratos = " + str(self._carbs*100/grams) + " (g)\nGrasa = " + str(self._fats*100/grams) + " (g)\nCalcio = " + str(self._calcium*100/grams) + "(mg)")
+		print("Calorías = " + str(self._calories*grams/100) + " (kcal)\nProteínas = " + str(self._proteins*grams/100) + " (g)\nCarbohidratos = " + str(self._carbs*grams/100) + " (g)\nGrasa = " + str(self._fats*grams/100) + " (g)\nCalcio = " + str(self._calcium*grams/100) + "(mg)")
 
 
+class Verdure(Food, metaclass = ABCMeta):
+
+	def __init__ (self, name, price, expire_date, calories, proteins, carbs, fats, vitC):
+		super().__init__(name, price, expire_date, calories, proteins, carbs, fats)
+		self.vitC = vitC
+
+	def nutrition_data(self, grams = 100):
+		print("Calorías = " + str(self._calories*grams/100) + " (kcal)\nProteínas = " + str(self._proteins*grams/100) + " (g)\nCarbohidratos = " + str(self._carbs*grams/100) + " (g)\nGrasa = " + str(self._fats*grams/100) + " (g)\nVitamina C = " + str(self.vitC*grams/100) + "(mg)")
+
+
+class Meat(Food, metaclass = ABCMeta):
+
+	def __init__(self, name, price, expire_date, calories, proteins, carbs, fats, animal):
+		super().__init__(name, price, expire_date, calories, proteins, carbs, fats)
+		self.animal = animal
+
+	def nutrition_data(self, grams = 100):
+		print("Calorías = " + str(self._calories*grams/100) + " (kcal)\nProteínas = " + str(self._proteins*grams/100) + " (g)\nCarbohidratos = " + str(self._carbs*grams/100) + " (g)\nGrasa = " + str(self._fats*grams/100) + " (g)\nAnimal: " + self.animal)
+
+
+class Lomo(Meat):
+
+	def __init__(self, name, price, expire_date, calories, proteins, carbs, fats, animal = "vacuno"):
+		super().__init__(name, price, expire_date, calories, proteins, carbs, fats, animal)
 
 
 class Clothes(Product):
